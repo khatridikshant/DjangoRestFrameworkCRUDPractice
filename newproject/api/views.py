@@ -18,6 +18,13 @@ def user_detail(request,pk): #pk = primary key
     if (request.method == "GET"):
         return Response(UserSerializer(user).data,status=status.HTTP_200_OK)
     
+    if(request.method == "PUT"):
+        serializerformethodput = UserSerializer(user, request.data)
+        if serializerformethodput.is_valid():
+            serializerformethodput.save()
+            return Response(serializerformethodput.data)
+        return Response("Error",status=status.HTTP_400_BAD_REQUEST)
+    
 
 @api_view(["GET"])
 def get_users(request):
