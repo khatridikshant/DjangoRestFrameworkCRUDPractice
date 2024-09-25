@@ -24,7 +24,10 @@ def user_detail(request,pk): #pk = primary key
             serializerformethodput.save()
             return Response(serializerformethodput.data)
         return Response("Error",status=status.HTTP_400_BAD_REQUEST)
-    
+
+    if (request.method == "DELETE"):
+        user.delete()
+        return Response("Deleted",status=status.HTTP_200_OK)    
 
 @api_view(["GET"])
 def get_users(request):
