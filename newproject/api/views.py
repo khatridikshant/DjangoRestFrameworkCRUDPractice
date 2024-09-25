@@ -8,8 +8,16 @@ from .serializer import UserSerializer
 # Create your views here.
 
 @api_view(["GET","PUT","DELETE"])
-def user_detail(request,pk):
-    return Response()
+def user_detail(request,pk): #pk = primary key
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response("User Isnot Found", status=status.HTTP_404_NOT_FOUND)
+    
+
+    if (request.method == "GET"):
+        return Response(UserSerializer(user).data,status=status.HTTP_200_OK)
+    
 
 @api_view(["GET"])
 def get_users(request):
