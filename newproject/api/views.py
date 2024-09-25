@@ -8,8 +8,10 @@ from .serializer import UserSerializer
 # Create your views here.
 
 @api_view(["GET"])
-def get_fakeuser(request):
-    return Response(UserSerializer({"name": "FakeName", "age" : 40}).data)
+def get_users(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many = True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
 def create_user(request):
