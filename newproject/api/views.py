@@ -7,6 +7,10 @@ from .serializer import UserSerializer
 
 # Create your views here.
 
+@api_view(["GET","PUT","DELETE"])
+def user_detail(request,pk):
+    return Response()
+
 @api_view(["GET"])
 def get_users(request):
     users = User.objects.all()
@@ -21,3 +25,5 @@ def create_user(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
